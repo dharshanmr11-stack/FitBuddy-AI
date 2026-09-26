@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FitBuddy AI | Error</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+    <style>
+
+        .error-page {
+            min-height: 75vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+        }
+
+
+        .error-card {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            padding: 45px 35px;
+
+            background:
+                rgba(15, 23, 42, 0.82);
+
+            border:
+                1px solid
+                rgba(56, 189, 248, 0.25);
+
+            border-radius: 25px;
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, 0.45);
+        }
+
+
+        .error-icon {
+
+            width: 75px;
+            height: 75px;
+
+            margin: 0 auto 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(34, 211, 238, 0.10);
+
+            border:
+                1px solid
+                rgba(34, 211, 238, 0.30);
+
+            font-size: 34px;
+        }
+
+
+        .error-card h1 {
+
+            font-size: 38px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .error-card h1 span {
+
+            color: #22d3ee;
+        }
+
+
+        .error-message {
+
+            max-width: 520px;
+
+            margin: 0 auto;
+
+            color: #94a3b8;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+
+
+        .error-note {
+
+            margin-top: 22px;
+
+            padding: 14px 18px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            border:
+                1px solid
+                rgba(34, 211, 238, 0.15);
+
+            color: #cbd5e1;
+
+            font-size: 13px;
+        }
+
+
+        .retry-button {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 14px 25px;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #0891b2,
+                    #06b6d4
+                );
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            transition: 0.25s ease;
+        }
+
+
+        .retry-button:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(6, 182, 212, 0.30);
+        }
+
+
+        .error-brand {
+
+            margin-top: 25px;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            letter-spacing: 1px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <section class="error-page">
+
+        <div class="error-card">
+
+
+            <div class="error-icon">
+                ⚡
+            </div>
+
+
+            <h1>
+                Something Went <span>Wrong</span>
+            </h1>
+
+
+            <p class="error-message">
+                {{ error }}
+            </p>
+
+
+            <div class="error-note">
+                💡 Please try again in a few moments.
+            </div>
+
+
+            <a
+                href="/"
+                class="retry-button"
+            >
+                ← Try Again
+            </a>
+
+
+            <div class="error-brand">
+                FITBUDDY AI • AI WELLNESS ASSISTANT
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+</body>
+
+</html>

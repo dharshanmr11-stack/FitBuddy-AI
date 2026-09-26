@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FitBuddy AI | Wellness Companion</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✨ AI FITNESS ASSISTANT
+            </div>
+
+            <h1>FitBuddy <span>AI</span></h1>
+
+            <p class="hero-text">
+                Your smart wellness companion for creating
+                simple, personalized 7-day fitness plans.
+            </p>
+
+            <div class="feature-row">
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Powered</h3>
+                    <p>Smart plan generation</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>7-Day Plans</h3>
+                    <p>Simple weekly routines</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Smart Feedback</h3>
+                    <p>Update your plan</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAIN FORM -->
+        <section class="form-section">
+
+            <div class="section-title">
+                <span>👤</span>
+
+                <div>
+                    <h2>Personal Details</h2>
+                    <p>Tell us a little about yourself</p>
+                </div>
+            </div>
+
+            <form action="/generate-workout" method="post">
+
+                <div class="input-grid">
+
+                    <div class="input-group">
+                        <label for="username">👤 Your Name</label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your name"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="input-group">
+                        <label for="user_id">🆔 User ID</label>
+
+                        <input
+                            type="text"
+                            id="user_id"
+                            name="user_id"
+                            placeholder="Enter your user ID"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="input-group">
+                        <label for="age">🎂 Age</label>
+
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            min="13"
+                            max="100"
+                            placeholder="Enter your age"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="input-group">
+                        <label for="weight">⚖️ Weight</label>
+
+                        <input
+                            type="number"
+                            id="weight"
+                            name="weight"
+                            step="0.1"
+                            min="1"
+                            max="500"
+                            placeholder="Enter your weight"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <!-- FITNESS PREFERENCES -->
+
+                <div class="section-title preferences">
+
+                    <span>🎯</span>
+
+                    <div>
+                        <h2>Fitness Preferences</h2>
+                        <p>Choose your wellness preferences</p>
+                    </div>
+
+                </div>
+
+
+                <div class="input-grid">
+
+                    <div class="input-group full">
+
+                        <label for="goal">
+                            🎯 Fitness Goal
+                        </label>
+
+                        <input
+                            type="text"
+                            id="goal"
+                            name="goal"
+                            placeholder="Example: General fitness and wellbeing"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group full">
+
+                        <label for="intensity">
+                            🔥 Workout Intensity
+                        </label>
+
+                        <select
+                            id="intensity"
+                            name="intensity"
+                            required
+                        >
+
+                            <option value="">
+                                Select your preferred intensity
+                            </option>
+
+                            <option value="low">
+                                🌱 Low
+                            </option>
+
+                            <option value="medium">
+                                ⚡ Medium
+                            </option>
+
+                            <option value="high">
+                                🔥 High
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GENERATE BUTTON -->
+
+                <button
+                    type="submit"
+                    class="generate-button"
+                >
+
+                    <span>✨</span>
+
+                    Generate My Fitness Plan
+
+                    <span>→</span>
+
+                </button>
+
+
+                <p class="privacy-note">
+                    🔒 Your information is used only to create your plan.
+                </p>
+
+            </form>
+
+        </section>
+
+
+        <!-- TECHNOLOGY -->
+
+        <section class="technology">
+
+            <p>POWERED BY</p>
+
+            <div class="tech-list">
+
+                <span>⚡ FastAPI</span>
+
+                <span>🤖 Gemini AI</span>
+
+                <span>🗄️ SQLite</span>
+
+                <span>🎨 Jinja2</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADMIN -->
+
+        <div class="admin-link">
+
+            <a href="/view-all-users">
+                ⚙️ Admin Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

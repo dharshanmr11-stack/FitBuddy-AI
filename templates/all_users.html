@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FitBuddy AI - All Users</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>FitBuddy AI - All Users</h1>
+
+        {% if users %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>User ID</th>
+                        <th>Age</th>
+                        <th>Goal</th>
+                        <th>Intensity</th>
+                        <th>Plan Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for item in users %}
+
+                    <tr>
+                        <td>{{ item.user.username }}</td>
+
+                        <td>{{ item.user.user_id }}</td>
+
+                        <td>{{ item.user.age }}</td>
+
+                        <td>{{ item.user.goal }}</td>
+
+                        <td>{{ item.user.intensity }}</td>
+
+                        <td>
+                            {% if item.plan %}
+                                Plan Generated
+                            {% else %}
+                                No Plan
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <p>No users found.</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="/" class="back-link">
+            Back to Home
+        </a>
+
+    </div>
+
+</body>
+</html>

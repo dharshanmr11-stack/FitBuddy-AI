@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FitBuddy AI | Your Plan</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- RESULT HERO -->
+
+    <section class="result-hero">
+
+        <div class="hero-badge">
+            ✨ YOUR AI PLAN IS READY
+        </div>
+
+        <h1>
+            Your <span>FitBuddy</span> Plan
+        </h1>
+
+        <p>
+            A personalized wellness plan created with AI.
+        </p>
+
+    </section>
+
+
+    <!-- USER PROFILE -->
+
+    <section class="result-card">
+
+        <div class="result-title">
+
+            <span>👤</span>
+
+            <div>
+
+                <h2>Your Profile</h2>
+
+                <p>
+                    Information used to create your plan
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+            <div class="profile-item">
+
+                <span>👤</span>
+
+                <small>Name</small>
+
+                <strong>
+                    {{ user.username }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <span>🆔</span>
+
+                <small>User ID</small>
+
+                <strong>
+                    {{ user.user_id }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <span>🎂</span>
+
+                <small>Age</small>
+
+                <strong>
+                    {{ user.age }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <span>🎯</span>
+
+                <small>Goal</small>
+
+                <strong>
+                    {{ user.goal }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <span>🔥</span>
+
+                <small>Intensity</small>
+
+                <strong>
+                    {{ user.intensity }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WELLNESS TIP -->
+
+    <section class="result-card tip-card">
+
+        <div class="result-title">
+
+            <span>🥗</span>
+
+            <div>
+
+                <h2>Wellness & Recovery Tip</h2>
+
+                <p>
+                    A simple healthy habit for your routine
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="tip-content">
+
+            💡 {{ plan.nutrition_tip }}
+
+        </div>
+
+    </section>
+
+
+    <!-- 7 DAY PLAN -->
+
+    <section class="result-card">
+
+        <div class="result-title">
+
+            <span>📅</span>
+
+            <div>
+
+                <h2>7-Day Fitness Plan</h2>
+
+                <p>
+                    Your AI-generated weekly routine
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="plan-container">
+
+            <pre class="plan">
+{{ plan.updated_plan or plan.original_plan }}
+            </pre>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEEDBACK -->
+
+    <section class="result-card feedback-card">
+
+        <div class="result-title">
+
+            <span>💬</span>
+
+            <div>
+
+                <h2>Improve Your Plan</h2>
+
+                <p>
+                    Tell FitBuddy what you would like to change.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form
+            action="/submit-feedback"
+            method="post"
+        >
+
+            <input
+                type="hidden"
+                name="user_id"
+                value="{{ user.user_id }}"
+            >
+
+
+            <label for="feedback">
+                Your Feedback
+            </label>
+
+
+            <textarea
+                id="feedback"
+                name="feedback"
+                rows="5"
+                placeholder="Example: Make the routine simpler and include more recovery activities..."
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="generate-button"
+            >
+
+                ✨ Update My Plan →
+
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- TECHNOLOGY -->
+
+    <section class="technology">
+
+        <p>POWERED BY</p>
+
+        <div class="tech-list">
+
+            <span>⚡ FastAPI</span>
+
+            <span>🤖 Gemini AI</span>
+
+            <span>🗄️ SQLite</span>
+
+        </div>
+
+    </section>
+
+
+    <a
+        href="/"
+        class="back-home"
+    >
+        ← Create Another Plan
+    </a>
+
+
+</div>
+
+</body>
+
+</html>
