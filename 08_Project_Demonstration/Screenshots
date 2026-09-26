@@ -1,0 +1,16 @@
+Fitbuddy AI
+│
+├── 01_Brainstorming_And_Ideation
+├── 02_Requirement_Analysis
+├── 03_Project_Design
+├── 04_Project_Planning
+├── 05_Project_Development
+├── 06_Project_Testing
+├── 07_Project_Documentation
+├── 08_Project_Demonstration
+│
+├── app
+├── static
+├── templates
+├── requirements.txt
+└── .gitignore
