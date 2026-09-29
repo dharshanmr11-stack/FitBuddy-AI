@@ -1,5 +1,6 @@
 from google import genai
 from google.genai import types
+import time
 
 from .config import GOOGLE_API_KEY, GEMINI_WORKOUT_MODEL
 
@@ -71,20 +72,62 @@ Continue the same format through DAY 7.
 Keep the language simple and easy to understand.
 """
 
-    response = client.models.generate_content(
-        model=GEMINI_WORKOUT_MODEL,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            temperature=0.4,
-            max_output_tokens=5000
-        )
-    )
+    max_attempts = 3
 
-    result = response.text
+    for attempt in range(max_attempts):
 
-    if not result:
-        raise RuntimeError(
-            "Gemini returned an empty response."
-        )
+        try:
 
-    return result.strip()
+            response = client.models.generate_content(
+                model=GEMINI_WORKOUT_MODEL,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=0.4,
+                    max_output_tokens=5000
+                )
+            )
+
+            result = response.text
+
+            if not result:
+                raise RuntimeError(
+                    "Gemini returned an empty response."
+                )
+
+            return result.strip()
+
+        except Exception as e:
+
+            error_text = str(e)
+
+            # Retry when Gemini is temporarily busy
+            if (
+                "503" in error_text
+                or "UNAVAILABLE" in error_text
+            ):
+
+                if attempt < max_attempts - 1:
+                    time.sleep(5)
+                    continue
+
+                raise RuntimeError(
+                    "Gemini AI is temporarily busy. "
+                    "Please try again after a few moments."
+                )
+
+            # Retry when Gemini quota is temporarily limited
+            if (
+                "429" in error_text
+                or "RESOURCE_EXHAUSTED" in error_text
+            ):
+
+                if attempt < max_attempts - 1:
+                    time.sleep(5)
+                    continue
+
+                raise RuntimeError(
+                    "Gemini AI usage limit has been reached temporarily. "
+                    "Please try again after the quota resets."
+                )
+
+            raise

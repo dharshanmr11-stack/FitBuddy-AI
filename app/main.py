@@ -2,7 +2,9 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.sessions import SessionMiddleware
 
+from .config import SESSION_SECRET
 from .database import init_db
 from .routes import router
 
@@ -17,7 +19,13 @@ app = FastAPI(
 )
 
 
-# Static files
+# Enable secure session support for Admin Login
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=SESSION_SECRET
+)
+
+
 app.mount(
     "/static",
     StaticFiles(directory=BASE_DIR / "static"),
@@ -25,11 +33,9 @@ app.mount(
 )
 
 
-# Application routes
 app.include_router(router)
 
 
-# Initialize database when application starts
 @app.on_event("startup")
 def startup():
     init_db()

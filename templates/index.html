@@ -7,13 +7,105 @@
     <title>FitBuddy AI | Wellness Companion</title>
 
     <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 26, 31, 0.94);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .loading-box {
+            padding: 35px;
+        }
+
+        .loading-icon {
+            font-size: 55px;
+            margin-bottom: 20px;
+            animation: pulse 1.2s infinite;
+        }
+
+        .loading-spinner {
+            width: 55px;
+            height: 55px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top: 5px solid #20c997;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-box h2 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .loading-box p {
+            color: #b8c8cc;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .generate-button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- LOADING SCREEN -->
+
+    <div class="loading-overlay" id="loadingOverlay">
+
+        <div class="loading-box">
+
+            <div class="loading-icon">
+                🤖
+            </div>
+
+            <div class="loading-spinner"></div>
+
+            <h2>Creating Your Fitness Plan...</h2>
+
+            <p>
+                FitBuddy AI is preparing your personalized 7-day plan.
+            </p>
+
+            <p>
+                Please wait a moment.
+            </p>
+
+        </div>
+
+    </div>
+
+
     <div class="page">
 
         <!-- HERO -->
+
         <section class="hero">
 
             <div class="hero-badge">
@@ -53,23 +145,34 @@
 
 
         <!-- MAIN FORM -->
+
         <section class="form-section">
 
             <div class="section-title">
+
                 <span>👤</span>
 
                 <div>
                     <h2>Personal Details</h2>
                     <p>Tell us a little about yourself</p>
                 </div>
+
             </div>
 
-            <form action="/generate-workout" method="post">
+
+            <form
+                action="/generate-workout"
+                method="post"
+                id="fitnessForm"
+            >
 
                 <div class="input-grid">
 
                     <div class="input-group">
-                        <label for="username">👤 Your Name</label>
+
+                        <label for="username">
+                            👤 Your Name
+                        </label>
 
                         <input
                             type="text"
@@ -78,11 +181,15 @@
                             placeholder="Enter your name"
                             required
                         >
+
                     </div>
 
 
                     <div class="input-group">
-                        <label for="user_id">🆔 User ID</label>
+
+                        <label for="user_id">
+                            🆔 User ID
+                        </label>
 
                         <input
                             type="text"
@@ -91,11 +198,15 @@
                             placeholder="Enter your user ID"
                             required
                         >
+
                     </div>
 
 
                     <div class="input-group">
-                        <label for="age">🎂 Age</label>
+
+                        <label for="age">
+                            🎂 Age
+                        </label>
 
                         <input
                             type="number"
@@ -106,11 +217,15 @@
                             placeholder="Enter your age"
                             required
                         >
+
                     </div>
 
 
                     <div class="input-group">
-                        <label for="weight">⚖️ Weight</label>
+
+                        <label for="weight">
+                            ⚖️ Weight
+                        </label>
 
                         <input
                             type="number"
@@ -122,6 +237,7 @@
                             placeholder="Enter your weight"
                             required
                         >
+
                     </div>
 
                 </div>
@@ -134,8 +250,13 @@
                     <span>🎯</span>
 
                     <div>
+
                         <h2>Fitness Preferences</h2>
-                        <p>Choose your wellness preferences</p>
+
+                        <p>
+                            Choose your wellness preferences
+                        </p>
+
                     </div>
 
                 </div>
@@ -200,6 +321,7 @@
                 <button
                     type="submit"
                     class="generate-button"
+                    id="generateButton"
                 >
 
                     <span>✨</span>
@@ -245,13 +367,41 @@
 
         <div class="admin-link">
 
-            <a href="/view-all-users">
+            <a href="/admin">
                 ⚙️ Admin Dashboard
             </a>
 
         </div>
 
     </div>
+
+
+    <!-- LOADING SCRIPT -->
+
+    <script>
+
+        const fitnessForm =
+            document.getElementById("fitnessForm");
+
+        const loadingOverlay =
+            document.getElementById("loadingOverlay");
+
+        const generateButton =
+            document.getElementById("generateButton");
+
+
+        fitnessForm.addEventListener("submit", function () {
+
+            loadingOverlay.style.display = "flex";
+
+            generateButton.disabled = true;
+
+            generateButton.innerHTML =
+                "Generating Plan... ⏳";
+
+        });
+
+    </script>
 
 </body>
 </html>

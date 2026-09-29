@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, Depends, Form
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
@@ -245,25 +245,85 @@ def submit_feedback(
 
 
 # --------------------------------------------------
-# Admin - View all users
+# Admin Login Page
 # --------------------------------------------------
 
-@router.get("/view-all-users", response_class=HTMLResponse)
-def view_all_users(
+@router.get("/admin", response_class=HTMLResponse)
+def admin_login_page(request: Request):
+
+    if request.session.get("admin_authenticated"):
+        return RedirectResponse(
+            "/view-all-users",
+            status_code=303
+        )
+
+    return templates.TemplateResponse(
+        request=request,
+        name="admin_login.html",
+        context={}
+    )
+
+
+# --------------------------------------------------
+# Admin Login
+# --------------------------------------------------
+
+@router.post("/admin-login", response_class=HTMLResponse)
+def admin_login(
     request: Request,
-    key: str = "",
-    db: Session = Depends(get_db)
+    key: str = Form(...)
 ):
 
     if key != ADMIN_KEY:
 
         return templates.TemplateResponse(
             request=request,
-            name="error.html",
+            name="admin_login.html",
             context={
-                "error": "Invalid admin key."
+                "error": "Invalid admin key. Please try again."
             },
             status_code=403
+        )
+
+    request.session["admin_authenticated"] = True
+
+    return RedirectResponse(
+        "/view-all-users",
+        status_code=303
+    )
+
+
+# --------------------------------------------------
+# Admin Logout
+# --------------------------------------------------
+
+@router.get("/admin-logout")
+def admin_logout(request: Request):
+
+    request.session.clear()
+
+    return RedirectResponse(
+        "/admin",
+        status_code=303
+    )
+
+
+# --------------------------------------------------
+# Admin Dashboard - View all users
+# --------------------------------------------------
+
+@router.get("/view-all-users", response_class=HTMLResponse)
+def view_all_users(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+
+    # Check admin session
+    if not request.session.get("admin_authenticated"):
+
+        return RedirectResponse(
+            "/admin",
+            status_code=303
         )
 
     users = get_all_users(db)

@@ -1,54 +1,33 @@
-from google import genai
-from google.genai import types
-
-from .config import GOOGLE_API_KEY, GEMINI_TIP_MODEL
-
-
 def generate_nutrition_tip(goal, intensity):
-    if not GOOGLE_API_KEY:
-        raise RuntimeError(
-            "GOOGLE_API_KEY is not configured."
+
+    tips = [
+        "Drink enough water throughout the day and include a variety of nutritious foods in your regular meals.",
+        "Try to include fruits, vegetables, whole grains and protein-rich foods as part of balanced meals.",
+        "Stay hydrated and give your body enough time to rest and recover after physical activity.",
+        "Choose regular balanced meals and snacks that help you stay energized throughout the day.",
+        "Good sleep, hydration and balanced meals are important parts of a healthy fitness routine."
+    ]
+
+    goal_text = str(goal).lower()
+    intensity_text = str(intensity).lower()
+
+    if "strength" in goal_text:
+        return (
+            "Include balanced meals with protein-rich foods, "
+            "whole grains, fruits and vegetables. Stay hydrated "
+            "and allow enough time for recovery."
         )
 
-    client = genai.Client(
-        api_key=GOOGLE_API_KEY
-    )
-
-    prompt = f"""
-You are FitBuddy, a friendly wellness assistant.
-
-Give one short, simple nutrition and recovery tip.
-
-Goal: {goal}
-Intensity: {intensity}
-
-Rules:
-- Give general healthy lifestyle advice.
-- Do not give calorie targets.
-- Do not recommend restrictive diets or fasting.
-- Do not recommend supplements or drugs.
-- Do not provide medical treatment.
-- Keep the advice suitable for a young student.
-- Maximum 100 words.
-- Use simple English.
-
-Return only the tip.
-"""
-
-    response = client.models.generate_content(
-        model=GEMINI_TIP_MODEL,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            temperature=0.4,
-            max_output_tokens=300
-        )
-    )
-
-    result = response.text
-
-    if not result:
-        raise RuntimeError(
-            "Gemini returned an empty response."
+    if "energy" in goal_text or "fitness" in goal_text:
+        return (
+            "Stay hydrated and choose balanced meals with "
+            "fruits, vegetables, whole grains and protein-rich foods."
         )
 
-    return result.strip()
+    if intensity_text == "high":
+        return (
+            "Stay well hydrated and make sure you eat regular "
+            "balanced meals. Rest and recovery are also important."
+        )
+
+    return tips[0]
